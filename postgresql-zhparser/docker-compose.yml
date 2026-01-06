@@ -1,0 +1,16 @@
+services:
+  postgres:
+    build:
+      context: ./postgres  # Dockerfile 所在的目录
+      dockerfile: Dockerfile
+    container_name: postgres_with_zhparser # 给容器起个名字
+    environment:
+      POSTGRES_USER: postgresql      # 数据库用户名
+      POSTGRES_PASSWORD: hcr707305003 # 数据库密码
+      POSTGRES_DB: ai-moments          # 数据库名
+    ports:
+      - "5432:5432"                    # 将容器的5432端口映射到主机的5432端口
+    volumes:
+      - ./data:/var/lib/postgresql # 挂载路径自己配置-数据持久化
+      - ./postgres/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql # 初始化脚本
+    restart: unless-stopped

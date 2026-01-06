@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  pgbouncer:
+    build: .
+    container_name: pgbouncer
+    restart: always
+    ports:
+      - "6432:6432"
+    volumes:
+      - ./pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./userlist.txt:/etc/pgbouncer/userlist.txt:ro
